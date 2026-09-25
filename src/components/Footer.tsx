@@ -2,11 +2,7 @@ import React from 'react';
 import { Linkedin, ArrowUp, ShieldCheck } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 
-interface FooterProps {
-  onOpenDeployGuide?: () => void;
-}
-
-export const Footer: React.FC<FooterProps> = ({ onOpenDeployGuide }) => {
+export const Footer: React.FC = () => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -57,19 +53,8 @@ export const Footer: React.FC<FooterProps> = ({ onOpenDeployGuide }) => {
         </div>
 
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="text-slate-400 text-[11px] flex flex-wrap items-center gap-2">
-            <span>© {new Date().getFullYear()} Marcos Silveira. Todos os direitos reservados.</span>
-            {onOpenDeployGuide && (
-              <>
-                <span aria-hidden="true" className="text-slate-700">·</span>
-                <button
-                  onClick={onOpenDeployGuide}
-                  className="text-amber-400 hover:text-amber-300 underline underline-offset-2 cursor-pointer transition-colors"
-                >
-                  Guia Deploy GitHub (HTTPS)
-                </button>
-              </>
-            )}
+          <div className="text-slate-400 text-[11px]">
+            © {new Date().getFullYear()} Marcos Silveira. Todos os direitos reservados.
           </div>
 
           <div className="flex items-center gap-4">

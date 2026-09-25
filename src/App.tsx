@@ -13,11 +13,9 @@ import { MaturityDiagnostic } from './components/MaturityDiagnostic';
 import { ConsultingServices } from './components/ConsultingServices';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
-import { GithubDeployGuideModal } from './components/GithubDeployGuideModal';
 
 export default function App() {
   const [preFilledContactMessage, setPreFilledContactMessage] = useState<string>('');
-  const [isDeployGuideOpen, setIsDeployGuideOpen] = useState<boolean>(false);
 
   const scrollToContact = () => {
     const el = document.getElementById('contato');
@@ -34,10 +32,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col selection:bg-amber-400 selection:text-slate-950">
       {/* 3-Zone Navigation Header */}
-      <Navbar 
-        onOpenContact={scrollToContact} 
-        onOpenDeployGuide={() => setIsDeployGuideOpen(true)}
-      />
+      <Navbar onOpenContact={scrollToContact} />
 
       <main className="flex-1">
         {/* Hero Section */}
@@ -63,13 +58,7 @@ export default function App() {
       </main>
 
       {/* Quiet, Compliant Footer */}
-      <Footer onOpenDeployGuide={() => setIsDeployGuideOpen(true)} />
-
-      {/* GitHub Pages & HTTPS Certificate Guide Modal */}
-      <GithubDeployGuideModal 
-        isOpen={isDeployGuideOpen} 
-        onClose={() => setIsDeployGuideOpen(false)} 
-      />
+      <Footer />
     </div>
   );
 }

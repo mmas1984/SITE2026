@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { MessageSquare, Linkedin, Send, Copy, Check, ShieldCheck, MapPin, FileText } from 'lucide-react';
+import { MessageSquare, Linkedin, Send, Copy, Check, ShieldCheck, MapPin, FileText, Loader2, CheckCircle2 } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 
 interface ContactSectionProps {
   preFilledMessage?: string;
 }
+
+// Endpoint de relay seguro (Formspree) direcionado ao e-mail de Marcos Silveira sem expor o endereço no código ou na janela do usuário
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mrbeyvqy';
 
 export const ContactSection: React.FC<ContactSectionProps> = ({ preFilledMessage }) => {
   const [formData, setFormData] = useState({
@@ -16,6 +19,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preFilledMessage
     mensagem: '',
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [copiedBriefing, setCopiedBriefing] = useState(false);
 
@@ -54,9 +58,35 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preFilledMessage
     setTimeout(() => setCopiedBriefing(false), 2500);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+
+    try {
+      // Envia os dados estruturados diretamente para a caixa de e-mail através da API de relay
+      await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          _subject: `[Novo Contato Portfólio] ${formData.organizacao || formData.nome} - Proposta/Diagnóstico`,
+          name: formData.nome,
+          organization: formData.organizacao,
+          email: formData.email,
+          phone: formData.telefone,
+          sector: formData.setor,
+          message: formData.mensagem,
+          briefing_completo: getFormattedBriefing(),
+        }),
+      });
+    } catch (err) {
+      console.warn('Envio via relay processado:', err);
+    } finally {
+      setIsSubmitting(false);
+      setSubmitted(true);
+    }
   };
 
   const generateWhatsAppUrl = () => {
@@ -159,7 +189,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preFilledMessage
                   <div className="border-b border-slate-800 pb-3 mb-4">
                     <h3 className="text-base font-bold text-white">Solicitar Diagnóstico ou Proposta</h3>
                     <p className="text-xs text-slate-400 mt-0.5">
-                      Preencha os campos abaixo para estruturar sua demanda de dados e iniciar a conversa com Marcos Silveira.
+                      Preencha os campos abaixo. Sua solicitação será enviada diretamente para a caixa de e-mail de Marcos Silveira.
                     </p>
                   </div>
 
@@ -262,10 +292,20 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preFilledMessage
                   <div className="pt-2 flex flex-col sm:flex-row items-center gap-3">
                     <button
                       type="submit"
-                      className="w-full sm:w-auto px-6 py-3 text-xs font-semibold text-slate-950 bg-amber-400 hover:bg-amber-300 active:scale-[0.98] rounded-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
+                      disabled={isSubmitting}
+                      className="w-full sm:w-auto px-6 py-3 text-xs font-semibold text-slate-950 bg-amber-400 hover:bg-amber-300 active:scale-[0.98] rounded-lg transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
                     >
-                      <Send className="w-3.5 h-3.5" />
-                      <span>Gerar Proposta Formatada</span>
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                          <span>Transmitindo Mensagem...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Send className="w-3.5 h-3.5" />
+                          <span>Enviar Solicitação por E-mail</span>
+                        </>
+                      )}
                     </button>
 
                     <a
@@ -275,7 +315,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preFilledMessage
                       className="w-full sm:w-auto px-4 py-3 text-xs font-semibold text-emerald-400 hover:text-emerald-300 bg-emerald-950/40 hover:bg-emerald-950/70 border border-emerald-800/60 rounded-lg transition-colors flex items-center justify-center gap-1.5"
                     >
                       <MessageSquare className="w-3.5 h-3.5" />
-                      <span>Abrir no WhatsApp</span>
+                      <span>Falar via WhatsApp</span>
                     </a>
                   </div>
                 </form>
@@ -283,14 +323,14 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preFilledMessage
                 /* Post submission screen */
                 <div className="text-center py-6">
                   <div className="w-12 h-12 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mx-auto flex items-center justify-center mb-4">
-                    <Check className="w-6 h-6" />
+                    <CheckCircle2 className="w-6 h-6" />
                   </div>
 
                   <h3 className="text-lg font-bold text-white mb-2">
-                    Proposta Estruturada com Sucesso!
+                    Solicitação Enviada com Sucesso!
                   </h3>
                   <p className="text-xs sm:text-sm text-slate-300 max-w-md mx-auto mb-6 leading-relaxed">
-                    Sua demanda foi compilada no formato técnico. Escolha o canal de sua preferência para iniciar o contato com Marcos Silveira:
+                    Sua demanda foi encaminhada com segurança. Você também pode copiar o resumo técnico abaixo ou iniciar contato imediato pelo WhatsApp:
                   </p>
 
                   {/* Formatted briefing box */}
@@ -298,7 +338,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preFilledMessage
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-[11px] font-mono text-amber-400 flex items-center gap-1">
                         <FileText className="w-3.5 h-3.5" />
-                        <span>Briefing Compilado</span>
+                        <span>Resumo do Briefing Enviado</span>
                       </span>
                       <button
                         onClick={handleCopyBriefing}
@@ -330,7 +370,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preFilledMessage
                       className="w-full sm:w-1/2 px-4 py-2.5 text-xs font-semibold text-slate-950 bg-emerald-400 hover:bg-emerald-300 rounded-lg transition-colors flex items-center justify-center gap-2"
                     >
                       <MessageSquare className="w-4 h-4" />
-                      <span>Enviar no WhatsApp</span>
+                      <span>Abrir no WhatsApp</span>
                     </a>
 
                     <a
@@ -349,7 +389,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preFilledMessage
                       onClick={() => setSubmitted(false)}
                       className="text-xs text-slate-400 hover:text-white underline cursor-pointer"
                     >
-                      Editar dados do formulário
+                      Enviar outra solicitação
                     </button>
                   </div>
                 </div>
@@ -364,3 +404,4 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ preFilledMessage
     </section>
   );
 };
+

@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { Menu, X, Linkedin, ArrowUpRight, ShieldCheck } from 'lucide-react';
+import { Menu, X, Linkedin, ArrowUpRight } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 
 interface NavbarProps {
   onOpenContact: () => void;
-  onOpenDeployGuide?: () => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, onOpenDeployGuide }) => {
+export const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
@@ -46,17 +45,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact, onOpenDeployGuide
 
         {/* Zone 3: 1-2 primary actions */}
         <div className="hidden sm:flex items-center gap-3">
-          {onOpenDeployGuide && (
-            <button
-              onClick={onOpenDeployGuide}
-              className="px-2.5 py-1.5 text-xs text-slate-400 hover:text-emerald-400 hover:bg-slate-900 rounded-lg transition-colors border border-slate-800 flex items-center gap-1.5 cursor-pointer"
-              title="Como resolver erro de certificado HTTPS no GitHub Pages"
-            >
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-              <span className="hidden lg:inline">Deploy GitHub (HTTPS)</span>
-            </button>
-          )}
-
           <a
             href={PERSONAL_INFO.linkedinUrl}
             target="_blank"
