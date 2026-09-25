@@ -4,7 +4,6 @@ export const PERSONAL_INFO = {
   name: 'Marcos Silveira',
   title: 'Especialista em Dados & Business Intelligence',
   headline: 'Engenharia Analítica, Governança e Decisões Baseadas em Dados',
-  email: 'marcossilveira84.MS@gmail.com',
   linkedinUrl: 'https://www.linkedin.com/in/marcos-silveira-97bb7a85?utm_source=share_via&utm_content=profile&utm_medium=member_android',
   powerBiEmbedUrl: 'https://app.powerbi.com/view?r=eyJrIjoiMmI4NmUyNWMtODE2Mi00MDVmLTkzOTQtYzBiYTEwMWYyZWNjIiwidCI6ImQxOWIyZDA1LTBkNmUtNDIzNC1iZDBlLTliN2ExZTcxNzIyNiJ9',
   location: 'Brasil · Atendimento Remoto Nacional',
@@ -570,7 +569,7 @@ function executarRotinaComLog(funcaoProcesso) {
   } catch (err) {
     console.error("Falha na rotina: " + err.message);
     MailApp.sendEmail(
-      "marcossilveira84.MS@gmail.com",
+      "alertas-bi@empresa.com.br",
       "[ALERTA CRÍTICO] Falha no Pipeline Automático",
       "Ocorreu um erro na execução do processo:\\n\\n" + err.stack
     );

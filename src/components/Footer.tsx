@@ -1,8 +1,12 @@
 import React from 'react';
-import { Linkedin, Mail, ArrowUp } from 'lucide-react';
+import { Linkedin, ArrowUp, ShieldCheck } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  onOpenDeployGuide?: () => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({ onOpenDeployGuide }) => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -53,8 +57,19 @@ export const Footer: React.FC = () => {
         </div>
 
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="text-slate-400 text-[11px]">
-            © {new Date().getFullYear()} Marcos Silveira. Todos os direitos reservados. Stack: Power BI, DAX, SQL, Power Query, Google Apps Script.
+          <div className="text-slate-400 text-[11px] flex flex-wrap items-center gap-2">
+            <span>© {new Date().getFullYear()} Marcos Silveira. Todos os direitos reservados.</span>
+            {onOpenDeployGuide && (
+              <>
+                <span aria-hidden="true" className="text-slate-700">·</span>
+                <button
+                  onClick={onOpenDeployGuide}
+                  className="text-amber-400 hover:text-amber-300 underline underline-offset-2 cursor-pointer transition-colors"
+                >
+                  Guia Deploy GitHub (HTTPS)
+                </button>
+              </>
+            )}
           </div>
 
           <div className="flex items-center gap-4">
@@ -65,18 +80,15 @@ export const Footer: React.FC = () => {
               className="text-slate-400 hover:text-white flex items-center gap-1.5 transition-colors"
             >
               <Linkedin className="w-3.5 h-3.5 text-[#0a66c2]" />
-              <span>LinkedIn</span>
+              <span>Conectar no LinkedIn</span>
             </a>
 
             <span aria-hidden="true" className="text-slate-800">·</span>
 
-            <a
-              href={`mailto:${PERSONAL_INFO.email}`}
-              className="text-slate-400 hover:text-white flex items-center gap-1.5 transition-colors"
-            >
-              <Mail className="w-3.5 h-3.5 text-amber-400" />
-              <span>{PERSONAL_INFO.email}</span>
-            </a>
+            <span className="text-slate-400 flex items-center gap-1.5">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+              <span>{PERSONAL_INFO.location}</span>
+            </span>
           </div>
         </div>
 
