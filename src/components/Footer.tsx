@@ -28,6 +28,9 @@ export const Footer: React.FC = () => {
             <a href="#powerbi-showcase" className="hover:text-slate-200 transition-colors">
               Dashboards
             </a>
+            <a href="#capacitacao" className="hover:text-slate-200 transition-colors">
+              Capacitação
+            </a>
             <a href="#cases" className="hover:text-slate-200 transition-colors">
               Casos & DAX
             </a>

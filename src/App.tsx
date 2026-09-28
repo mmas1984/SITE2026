@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { PowerBiShowcase } from './components/PowerBiShowcase';
+import { CorporateTraining } from './components/CorporateTraining';
 import { StackSection } from './components/StackSection';
 import { ArticlesSection } from './components/ArticlesSection';
 import { MaturityDiagnostic } from './components/MaturityDiagnostic';
@@ -43,6 +44,9 @@ export default function App() {
 
         {/* Featured Power BI Live Embed & Case Studies */}
         <PowerBiShowcase />
+
+        {/* Corporate Training & Team Enablement */}
+        <CorporateTraining onOpenContact={scrollToContact} />
 
         {/* Technical Stack Deep-Dive & Code Workbench */}
         <StackSection />
