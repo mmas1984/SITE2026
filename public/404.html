@@ -4,14 +4,19 @@
     <meta charset="utf-8">
     <title>Marcos Silveira | Redirecionando...</title>
     <script>
-      // Single Page Apps for GitHub Pages
-      // Redirects 404 subpaths back to the single-page application root
-      var pathSegmentsToKeep = 1;
+      // Single Page Apps for GitHub Pages and Custom Domains
+      // If deployed at root (custom domain marcossilveira.com.br), pathSegmentsToKeep is 0
+      // If deployed at username.github.io/repo, pathSegmentsToKeep is 1
+      var isCustomDomain = !window.location.hostname.endsWith('github.io');
+      var pathSegmentsToKeep = isCustomDomain ? 0 : 1;
       var l = window.location;
+      var repoPath = l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/');
+      var targetPath = l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~');
+      
       l.replace(
         l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-        l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + '/?p=/' +
-        l.pathname.slice(1).split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~') +
+        (repoPath ? repoPath : '') + '/?p=/' +
+        targetPath +
         (l.search ? '&q=' + l.search.slice(1).replace(/&/g, '~and~') : '') +
         l.hash
       );

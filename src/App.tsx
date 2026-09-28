@@ -14,6 +14,7 @@ import { MaturityDiagnostic } from './components/MaturityDiagnostic';
 import { ConsultingServices } from './components/ConsultingServices';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
+import { ErrorBoundary } from './components/ErrorBoundary';
 
 export default function App() {
   const [preFilledContactMessage, setPreFilledContactMessage] = useState<string>('');
@@ -31,38 +32,40 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col selection:bg-amber-400 selection:text-slate-950">
-      {/* 3-Zone Navigation Header */}
-      <Navbar onOpenContact={scrollToContact} />
+    <ErrorBoundary>
+      <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col selection:bg-amber-400 selection:text-slate-950">
+        {/* 3-Zone Navigation Header */}
+        <Navbar onOpenContact={scrollToContact} />
 
-      <main className="flex-1">
-        {/* Hero Section */}
-        <Hero onOpenContact={scrollToContact} />
+        <main className="flex-1">
+          {/* Hero Section */}
+          <Hero onOpenContact={scrollToContact} />
 
-        {/* Consulting Services & Engagement Methodology */}
-        <ConsultingServices onOpenContact={scrollToContact} />
+          {/* Consulting Services & Engagement Methodology */}
+          <ConsultingServices onOpenContact={scrollToContact} />
 
-        {/* Featured Power BI Live Embed & Case Studies */}
-        <PowerBiShowcase />
+          {/* Featured Power BI Live Embed & Case Studies */}
+          <PowerBiShowcase />
 
-        {/* Corporate Training & Team Enablement */}
-        <CorporateTraining onOpenContact={scrollToContact} />
+          {/* Corporate Training & Team Enablement */}
+          <CorporateTraining onOpenContact={scrollToContact} />
 
-        {/* Technical Stack Deep-Dive & Code Workbench */}
-        <StackSection />
+          {/* Technical Stack Deep-Dive & Code Workbench */}
+          <StackSection />
 
-        {/* Authority & Technical Articles */}
-        <ArticlesSection />
+          {/* Authority & Technical Articles */}
+          <ArticlesSection />
 
-        {/* Interactive Data Maturity Diagnostic Tool */}
-        <MaturityDiagnostic onPreFillContact={handleDiagnosticHandover} />
+          {/* Interactive Data Maturity Diagnostic Tool */}
+          <MaturityDiagnostic onPreFillContact={handleDiagnosticHandover} />
 
-        {/* Proposal & Contact Section with WhatsApp & Direct Email */}
-        <ContactSection preFilledMessage={preFilledContactMessage} />
-      </main>
+          {/* Proposal & Contact Section with WhatsApp & Direct Email */}
+          <ContactSection preFilledMessage={preFilledContactMessage} />
+        </main>
 
-      {/* Quiet, Compliant Footer */}
-      <Footer />
-    </div>
+        {/* Quiet, Compliant Footer */}
+        <Footer />
+      </div>
+    </ErrorBoundary>
   );
 }
