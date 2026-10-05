@@ -10,6 +10,7 @@ import { PowerBiShowcase } from './components/PowerBiShowcase';
 import { CorporateTraining } from './components/CorporateTraining';
 import { StackSection } from './components/StackSection';
 import { ArticlesSection } from './components/ArticlesSection';
+import { AboutMe } from './components/AboutMe';
 import { MaturityDiagnostic } from './components/MaturityDiagnostic';
 import { ConsultingServices } from './components/ConsultingServices';
 import { ContactSection } from './components/ContactSection';
@@ -55,6 +56,9 @@ export default function App() {
 
           {/* Authority & Technical Articles */}
           <ArticlesSection />
+
+          {/* Quem Sou Eu — Mini Currículo & Perfil Profissional */}
+          <AboutMe onOpenContact={scrollToContact} />
 
           {/* Interactive Data Maturity Diagnostic Tool */}
           <MaturityDiagnostic onPreFillContact={handleDiagnosticHandover} />

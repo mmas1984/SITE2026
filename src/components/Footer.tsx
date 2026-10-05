@@ -40,6 +40,9 @@ export const Footer: React.FC = () => {
             <a href="#artigos" className="hover:text-slate-200 transition-colors">
               Artigos Técnicos
             </a>
+            <a href="#quem-sou-eu" className="hover:text-slate-200 transition-colors">
+              Quem Sou Eu
+            </a>
             <a href="#diagnostico" className="hover:text-slate-200 transition-colors">
               Diagnóstico
             </a>
