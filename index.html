@@ -32,6 +32,7 @@
         }
       }(window.location));
     </script>
+    <link rel="stylesheet" href="/assets/main.css">
   </head>
   <body class="bg-slate-950 text-slate-100 antialiased font-sans selection:bg-amber-500/20 selection:text-amber-200">
     <div id="root">
@@ -42,7 +43,14 @@
         <style>@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }</style>
       </div>
     </div>
-    <script type="module" src="/src/main.tsx"></script>
+    <script type="module">
+      import('/src/main.tsx').catch(function() {
+        var s = document.createElement('script');
+        s.type = 'module';
+        s.src = '/assets/index.js';
+        document.body.appendChild(s);
+      });
+    </script>
   </body>
 </html>
 
