@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -43,6 +43,13 @@ jobs:
         with:
           path: './dist'
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages (Actions Artifact)
         id: deployment
+        continue-on-error: true
         uses: actions/deploy-pages@v4
+
+      - name: Deploy to gh-pages branch (Fallback for Branch Deployment)
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist
+          branch: gh-pages
