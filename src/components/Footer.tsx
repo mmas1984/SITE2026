@@ -31,15 +31,6 @@ export const Footer: React.FC = () => {
             <a href="#capacitacao" className="hover:text-slate-200 transition-colors">
               Capacitação
             </a>
-            <a href="#cases" className="hover:text-slate-200 transition-colors">
-              Casos & DAX
-            </a>
-            <a href="#stack" className="hover:text-slate-200 transition-colors">
-              Stack Técnica
-            </a>
-            <a href="#artigos" className="hover:text-slate-200 transition-colors">
-              Artigos Técnicos
-            </a>
             <a href="#quem-sou-eu" className="hover:text-slate-200 transition-colors">
               Quem Sou Eu
             </a>

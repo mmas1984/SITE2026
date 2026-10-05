@@ -13,9 +13,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenContact }) => {
     { label: 'Soluções', href: '#solucoes' },
     { label: 'Dashboards', href: '#powerbi-showcase' },
     { label: 'Capacitação', href: '#capacitacao' },
-    { label: 'Cases & DAX', href: '#cases' },
-    { label: 'Stack Técnica', href: '#stack' },
-    { label: 'Artigos', href: '#artigos' },
     { label: 'Quem Sou Eu', href: '#quem-sou-eu' },
     { label: 'Diagnóstico', href: '#diagnostico' },
   ];

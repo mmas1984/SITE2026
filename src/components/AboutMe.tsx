@@ -30,6 +30,16 @@ export const AboutMe: React.FC<AboutMeProps> = ({ onOpenContact }) => {
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  const handleImageError = () => {
+    if (photoSrc === '1779411378191.jpg') {
+      setPhotoSrc('marcos-silveira.jpg');
+    } else if (photoSrc === 'marcos-silveira.jpg') {
+      setPhotoSrc('./1779411378191.jpg');
+    } else {
+      setImageError(true);
+    }
+  };
+
   // Inicializa imagem salva no navegador (se houver)
   useEffect(() => {
     try {
@@ -190,7 +200,7 @@ export const AboutMe: React.FC<AboutMeProps> = ({ onOpenContact }) => {
                         src={photoSrc} 
                         alt="Marcos Silveira — Especialista em Dados & BI"
                         className="w-full h-full object-cover object-top transition duration-300 group-hover:scale-105"
-                        onError={() => setImageError(true)}
+                        onError={handleImageError}
                         referrerPolicy="no-referrer"
                       />
 

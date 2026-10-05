@@ -8,8 +8,6 @@ import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { PowerBiShowcase } from './components/PowerBiShowcase';
 import { CorporateTraining } from './components/CorporateTraining';
-import { StackSection } from './components/StackSection';
-import { ArticlesSection } from './components/ArticlesSection';
 import { AboutMe } from './components/AboutMe';
 import { MaturityDiagnostic } from './components/MaturityDiagnostic';
 import { ConsultingServices } from './components/ConsultingServices';
@@ -50,12 +48,6 @@ export default function App() {
 
           {/* Corporate Training & Team Enablement */}
           <CorporateTraining onOpenContact={scrollToContact} />
-
-          {/* Technical Stack Deep-Dive & Code Workbench */}
-          <StackSection />
-
-          {/* Authority & Technical Articles */}
-          <ArticlesSection />
 
           {/* Quem Sou Eu — Mini Currículo & Perfil Profissional */}
           <AboutMe onOpenContact={scrollToContact} />
